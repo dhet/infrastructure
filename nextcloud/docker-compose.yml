@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6-alpine
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    env_file:
+      - db.env
+    networks:
+      - nextcloud
+
+  nextcloud:
+          #build: ./docker
+    image: nextcloud:19.0-apache
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - VIRTUAL_HOST=cloud.davidhettler.net
+      - LETSENCRYPT_HOST=cloud.davidhettler.net
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud
+    env_file:
+      - db.env
+    depends_on:
+      - db
+    networks:
+      - proxy_default
+      - nextcloud
+
+volumes:
+  db:
+  nextcloud:
+
+networks:
+  nextcloud:
+  proxy_default:
+    external: true

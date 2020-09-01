@@ -1,0 +1,24 @@
+- hosts: nextcloud
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: Install packages
+    apt:
+      name: 
+        - docker
+        - docker.io
+        - docker-compose
+        - jq
+        - htop
+      state: present
+      update_cache: yes
+  - name: Copy Nextcloud files
+    copy:
+      src: nextcloud
+      dest: /root
+      owner: root
+  - name: Run Nextcloud
+    docker_compose:
+      build: yes
+      project_src: /root/nextcloud
+      state: present

@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  website:
+    image: nginx:1.19-alpine
+    restart: always
+    environment:
+    - VIRTUAL_HOST=www.davidhettler.net,davidhettler.net
+    - LETSENCRYPT_HOST=www.davidhettler.net,davidhettler.net
+    volumes:
+    - html:/usr/share/nginx/html:ro
+    networks:
+    - proxy_default
+
+volumes:
+  html:
+
+networks:
+  proxy_default:
+    external: true

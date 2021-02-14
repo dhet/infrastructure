@@ -1,0 +1,14 @@
+- hosts: nextcloud
+  gather_facts: false
+  tasks:
+  - name: Copy Nextcloud files
+    copy:
+      src: nextcloud
+      dest: /srv
+      mode: preserve
+      group: appadmin
+  - name: Run Nextcloud
+    docker_compose:
+      build: yes
+      project_src: /srv/nextcloud
+      state: present

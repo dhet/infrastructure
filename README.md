@@ -1,12 +1,24 @@
 # Infrastructure
 
-Deploy proxy + website
+Initial setup
 ```
-ansible-playbook -i hosts setup.yml
+ansible-playbook --ask-vault-pass -i hosts 001_setup.yml
 ```
 
-Deploy Nextcloud
+Run reverse proxy
 ```
-ansible-playbook -i hosts --ask-vault-pass setup_nextcloud.yml
+ansible-playbook -i hosts 002_run_proxy.yml
 ```
-*Passwort in Keepass "Ansible Vault PW"*
+
+Run website
+```
+ansible-playbook -i hosts 003_run_website.yml
+```
+
+Run Nextcloud
+```
+ansible-playbook --ask-vault-pass -i hosts 004_run_nextcloud.yml
+```
+
+
+*Password in Keepass "Ansible Vault PW"*

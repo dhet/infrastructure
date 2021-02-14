@@ -1,0 +1,13 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Copy website files
+    copy:
+      src: website
+      dest: /srv
+      mode: preserve
+      group: appadmin
+  - name: Run website
+    docker_compose:
+      project_src: /srv/website
+      state: present

@@ -1,0 +1,15 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Copy proxy files
+    copy:
+      src: proxy
+      dest: /srv
+      mode: preserve
+      group: appadmin
+  - name: Run proxy
+    docker_compose:
+      build: yes
+      project_src: /srv/proxy
+      state: present
+      

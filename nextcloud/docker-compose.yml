@@ -13,7 +13,7 @@ services:
 
   nextcloud:
           #build: ./docker
-    image: nextcloud:29.0-apache
+    image: nextcloud:30.0-apache
     restart: always
     volumes:
       - nextcloud:/var/www/html
